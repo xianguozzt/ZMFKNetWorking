@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '8.0'
+
+target 'ZMFKNetWorking_Example' do
+  pod 'ZMFKNetWorking', :path => '../'
+
+  target 'ZMFKNetWorking_Tests' do
+    inherit! :search_paths
+
+    pod 'FBSnapshotTestCase'
+  end
+end

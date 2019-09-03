@@ -248,6 +248,9 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = xianguozzt;
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = 7FAS6TFVY7;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -519,6 +522,7 @@
 			baseConfigurationReference = 4B1F3DCFE31F4EF86A565174 /* Pods-ZMFKNetWorking_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7FAS6TFVY7;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZMFKNetWorking/ZMFKNetWorking-Prefix.pch";
 				INFOPLIST_FILE = "ZMFKNetWorking/ZMFKNetWorking-Info.plist";
@@ -535,6 +539,7 @@
 			baseConfigurationReference = 6F043F7F2451D3B2E9485DF4 /* Pods-ZMFKNetWorking_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7FAS6TFVY7;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZMFKNetWorking/ZMFKNetWorking-Prefix.pch";
 				INFOPLIST_FILE = "ZMFKNetWorking/ZMFKNetWorking-Info.plist";

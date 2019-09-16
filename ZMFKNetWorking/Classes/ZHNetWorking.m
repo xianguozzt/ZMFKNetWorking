@@ -10,6 +10,7 @@
 #import "ZHShowMessageView.h"
 @interface ZHNetWorking()
 @property (nonatomic) NSDictionary *headerDic;
+@property (nonatomic) NSString *baseUrl;
 @end
 @implementation ZHNetWorking
 static ZHNetWorking *_instance;
@@ -99,8 +100,10 @@ static BOOL isPopup = false;
     if([interface hasPrefix:@"http"]){
         requestUrl = interface;
     }else{
-        //requestUrl =[NSString stringWithFormat:@"%@%@",BaseUrlLogin,interface];
-        return;
+        if(!self.baseUrl){
+            return;
+        }
+        requestUrl =[NSString stringWithFormat:@"%@%@",self.baseUrl,interface];
     }
     
     NSDictionary *dic = self.headerDic;

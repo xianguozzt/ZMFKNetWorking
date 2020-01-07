@@ -8,7 +8,7 @@
 
 #ifndef ZHNetWorking_h
 #define ZHNetWorking_h
-
+#import <UIKit/UIKit.h>
 @interface ZHNetWorking : NSObject
 @property (nonatomic) void(^popUpBack)(NSString* result);
 

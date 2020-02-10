@@ -143,8 +143,16 @@ static BOOL isPopup = false;
                                 [weakSelf showAlert:interface message:response[@"errMsg"] type:NO sussess:^(){
                                     Class vc = NSClassFromString(@"ZHLoginViewController");
                                     id viewcontroller = [[vc alloc] init];
+                                    
                                     if (vc) {
-                                        [[weakSelf currentViewController] presentViewController:viewcontroller animated:YES completion:nil];
+                                        NSString *name = [[NSBundle mainBundle] bundleIdentifier];
+                                        if([name containsString:@"zhonghe"]){
+                                            UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:viewcontroller];
+                                            [[weakSelf currentViewController] presentViewController:navi animated:YES completion:nil];
+                                        }else{
+                                            [[weakSelf currentViewController] presentViewController:viewcontroller animated:YES completion:nil];
+                                        }
+                                        
                                     }
                                 }];
                             }

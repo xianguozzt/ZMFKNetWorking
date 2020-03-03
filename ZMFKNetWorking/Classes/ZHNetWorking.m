@@ -90,11 +90,11 @@ static BOOL isPopup = false;
     [self ZHGetRequest:interface method:@"post" para:dic isLoading:NO times:CGFLOAT_MAX  back:YES success:block fail:nil];
 }
 -(void)ZHGetRequest:(NSString*)interface method:(NSString*)method para:(NSDictionary*)para isLoading:(BOOL)isLoading times:(NSInteger)times back:(BOOL)back success:(void(^)(id))block fail:(void(^)(id))fail_block{
-#ifndef DEBUG
-    if([self getDelegateStatus]){
-        return;
-    }
-#endif
+//#ifndef DEBUG
+//    if([self getDelegateStatus]){
+//        return;
+//    }
+//#endif
     NSString *requestUrl;
     __weak typeof(self) weakSelf = self;
     if([interface hasPrefix:@"http"]){

@@ -11,6 +11,7 @@
 @interface ZHNetWorking()
 @property (nonatomic) NSDictionary *headerDic;
 @property (nonatomic) NSString *baseUrl;
+@property (nonatomic) BOOL isShow;
 @end
 @implementation ZHNetWorking
 static ZHNetWorking *_instance;
@@ -52,6 +53,9 @@ static BOOL isPopup = false;
     [self showAlert:title message:msg type:type vc:[self currentViewController] sussess:block];
 }
 -(void)showAlert:(NSString*)title message:(NSString*)msg type:(BOOL)type vc:(UIViewController*)vc sussess:(void(^)())block{
+    if(self.isShow){
+        return;
+    }
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
     if([[self currentViewController] isKindOfClass:NSClassFromString(@"ZHLoginSmsCodeViewController")]||[[self currentViewController] isKindOfClass:NSClassFromString(@"ZHLoginBindMobileController")]){
         alertVC.view.backgroundColor = [UIColor whiteColor];
@@ -69,9 +73,11 @@ static BOOL isPopup = false;
     UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         if(block)
             block();
+        self.isShow = NO;
     }];
     
     [alertVC addAction:sureAction];
+    self.isShow = YES;
     [vc presentViewController:alertVC animated:YES completion:nil];
 }
 -(void)ZHGetRequest:(NSString*)interface method:(NSString*)method para:(NSDictionary*)para isLoading:(BOOL)isLoading success:(void(^)(id))block fail:(void(^)(id))fail{
@@ -117,7 +123,7 @@ static BOOL isPopup = false;
         if(response == NULL){
             if(back == NO){
                 if(isPopup == NO){
-                    [weakSelf showAlert:interface message:@"服务器繁忙，请稍后再试。" type:NO sussess:^(){
+                    [weakSelf showAlert:@"" message:@"服务器繁忙，请稍后再试。" type:NO sussess:^(){
                         isPopup = NO;
                     }];
                     isPopup = YES;
@@ -140,7 +146,7 @@ static BOOL isPopup = false;
                         {
                             [HTNetWorking cancelAllRequest];
                             if(back == NO){
-                                [weakSelf showAlert:interface message:response[@"errMsg"] type:NO sussess:^(){
+                                [weakSelf showAlert:@"" message:response[@"errMsg"] type:NO sussess:^(){
                                     Class vc = NSClassFromString(@"ZHLoginViewController");
                                     id viewcontroller = [[vc alloc] init];
                                     

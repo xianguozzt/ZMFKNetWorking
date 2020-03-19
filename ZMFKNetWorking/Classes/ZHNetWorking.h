@@ -14,7 +14,7 @@
 
 
 
-
+-(void)ZHGetRequest:(NSString*)interface method:(NSString*)method para:(NSDictionary*)para isLoading:(BOOL)isLoading times:(NSInteger)times back:(BOOL)back success:(void(^)(id))block fail:(void(^)(id))fail_block;
 -(void)ZHGetRequest:(NSString*)interface method:(NSString*)method para:(NSDictionary*)para isLoading:(BOOL)isLoading success:(void(^)(id))block;
 -(void)ZHGetRequest:(NSString*)interface method:(NSString*)method para:(NSDictionary*)para isLoading:(BOOL)isLoading success:(void(^)(id))block fail:(void(^)(id))fail;
 -(void)ZHGetRequest:(NSString*)interface method:(NSString*)method para:(NSDictionary*)para isLoading:(BOOL)isLoading back:(BOOL)back success:(void(^)(id))block;

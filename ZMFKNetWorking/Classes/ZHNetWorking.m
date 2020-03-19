@@ -11,7 +11,8 @@
 @interface ZHNetWorking()
 @property (nonatomic) NSDictionary *headerDic;
 @property (nonatomic) NSString *baseUrl;
-@property (nonatomic) BOOL isShow;
+@property (nonatomic) UIViewController *lastVC;
+@property (nonatomic) UIAlertController *alertVC;
 @end
 @implementation ZHNetWorking
 static ZHNetWorking *_instance;
@@ -53,10 +54,13 @@ static BOOL isPopup = false;
     [self showAlert:title message:msg type:type vc:[self currentViewController] sussess:block];
 }
 -(void)showAlert:(NSString*)title message:(NSString*)msg type:(BOOL)type vc:(UIViewController*)vc sussess:(void(^)())block{
-    if(self.isShow){
+    if([self.lastVC isKindOfClass:vc]){
         return;
     }
+    [self.alertVC dismissViewControllerAnimated:NO completion:nil];
+    self.lastVC = vc;
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
+    self.alertVC = alertVC;
     if([[self currentViewController] isKindOfClass:NSClassFromString(@"ZHLoginSmsCodeViewController")]||[[self currentViewController] isKindOfClass:NSClassFromString(@"ZHLoginBindMobileController")]){
         alertVC.view.backgroundColor = [UIColor whiteColor];
     }else{
@@ -73,11 +77,10 @@ static BOOL isPopup = false;
     UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         if(block)
             block();
-        self.isShow = NO;
+        self.lastVC = nil;
     }];
     
     [alertVC addAction:sureAction];
-    self.isShow = YES;
     [vc presentViewController:alertVC animated:YES completion:nil];
 }
 -(void)ZHGetRequest:(NSString*)interface method:(NSString*)method para:(NSDictionary*)para isLoading:(BOOL)isLoading success:(void(^)(id))block fail:(void(^)(id))fail{

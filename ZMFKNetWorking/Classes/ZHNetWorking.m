@@ -11,8 +11,7 @@
 @interface ZHNetWorking()
 @property (nonatomic) NSDictionary *headerDic;
 @property (nonatomic) NSString *baseUrl;
-@property (nonatomic) UIViewController *lastVC;
-@property (nonatomic) UIAlertController *alertVC;
+@property (nonatomic,weak) UIAlertController *alertVC;
 @end
 @implementation ZHNetWorking
 static ZHNetWorking *_instance;
@@ -54,14 +53,15 @@ static BOOL isPopup = false;
     [self showAlert:title message:msg type:type vc:[self currentViewController] sussess:block];
 }
 -(void)showAlert:(NSString*)title message:(NSString*)msg type:(BOOL)type vc:(UIViewController*)vc sussess:(void(^)())block{
-    if([self.lastVC isKindOfClass:vc]){
+    if([vc isKindOfClass:[UIAlertController class]]){
         return;
     }
-    [self.alertVC dismissViewControllerAnimated:NO completion:nil];
-    self.lastVC = vc;
+    if(self.alertVC==vc){
+        return;
+    }
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
     self.alertVC = alertVC;
-    if([[self currentViewController] isKindOfClass:NSClassFromString(@"ZHLoginSmsCodeViewController")]||[[self currentViewController] isKindOfClass:NSClassFromString(@"ZHLoginBindMobileController")]){
+    if([vc isKindOfClass:NSClassFromString(@"ZHLoginSmsCodeViewController")]||[vc isKindOfClass:NSClassFromString(@"ZHLoginBindMobileController")]){
         alertVC.view.backgroundColor = [UIColor whiteColor];
     }else{
         id vc = [[NSClassFromString(@"ZHMainFontModel") alloc] init];
@@ -77,7 +77,7 @@ static BOOL isPopup = false;
     UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         if(block)
             block();
-        self.lastVC = nil;
+        self.alertVC = nil;
     }];
     
     [alertVC addAction:sureAction];

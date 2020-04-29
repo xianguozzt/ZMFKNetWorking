@@ -155,12 +155,9 @@ static BOOL isPopup = false;
                                     
                                     if (vc) {
                                         NSString *name = [[NSBundle mainBundle] bundleIdentifier];
-                                        if([name containsString:@"zhonghe"]){
-                                            UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:viewcontroller];
-                                            [[weakSelf currentViewController] presentViewController:navi animated:YES completion:nil];
-                                        }else{
-                                            [[weakSelf currentViewController] presentViewController:viewcontroller animated:YES completion:nil];
-                                        }
+                                        
+                                        UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:viewcontroller];
+                                        [[weakSelf currentViewController] presentViewController:navi animated:YES completion:nil];
                                         
                                     }
                                 }];
